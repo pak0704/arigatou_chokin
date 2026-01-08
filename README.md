@@ -165,4 +165,4 @@
 - Render
 
 ## 画面遷移図
-https://www.figma.com/design/yVsfk949pyig2bMWxEwzE0/%E7%84%A1%E9%A1%8C?node-id=0-1&t=Vp5zIfC86Q9Amdke-1
+https://www.figma.com/design/yVsfk949pyig2bMWxEwzE0/%E7%84%A1%E9%A1%8C?node-id=0-1&t=jozTedX7DA3kH2Sy-1
