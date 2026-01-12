@@ -143,7 +143,7 @@
 
 ### 言語・フレームワーク
 - Ruby 3.3.0
-- Ruby on Rails 8.1.1
+- Ruby on Rails 7.2.2
 
 ### フロントエンド
 - Hotwire (Turbo + Stimulus)
