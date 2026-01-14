@@ -8,7 +8,7 @@ class ThanksController < ApplicationController
   def create
     @thank = current_user.thanks.build(thank_params)
     if @thank.save
-      redirect_to root_path, notice: 'ありがとう記録を保存しました'
+      redirect_to root_path, notice: "ありがとう記録を保存しました"
     else
       render :new, status: :unprocessable_entity
     end

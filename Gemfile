@@ -52,8 +52,8 @@ group :development do
   gem "web-console"
 end
 
-# 認証機能
-  gem 'devise'
+  # 認証機能
+  gem "devise"
 
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
