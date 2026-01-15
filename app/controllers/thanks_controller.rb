@@ -1,6 +1,10 @@
 class ThanksController < ApplicationController
   before_action :authenticate_user!
 
+  def index
+    @thanks = current_user.thanks.order(date: :desc)
+  end
+
   def new
     @thank = Thank.new
   end
