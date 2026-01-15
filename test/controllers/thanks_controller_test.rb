@@ -6,6 +6,11 @@ class ThanksControllerTest < ActionDispatch::IntegrationTest
     sign_in @user
   end
 
+  test "should get index" do
+    get thanks_path
+    assert_response :success
+  end
+
   test "should get new" do
     get new_thank_path
     assert_response :success
