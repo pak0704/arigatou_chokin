@@ -1,6 +1,39 @@
 <div class="container mx-auto px-4 py-8">
   <h1 class="text-3xl font-bold mb-6">ありがとう記録一覧</h1>
 
+  <!-- 検索フォーム -->
+  <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+    <h2 class="text-xl font-semibold mb-4">検索</h2>
+    <%= form_with url: thanks_path, method: :get, local: true do |f| %>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+        <div>
+          <%= f.label :from_date, "開始日", class: "block text-sm font-medium text-gray-700 mb-2" %>
+          <%= f.date_field :from_date, value: params[:from_date], class: "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500" %>
+        </div>
+        <div>
+          <%= f.label :to_date, "終了日", class: "block text-sm font-medium text-gray-700 mb-2" %>
+          <%= f.date_field :to_date, value: params[:to_date], class: "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500" %>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+        <div>
+          <%= f.label :from_who, "誰から", class: "block text-sm font-medium text-gray-700 mb-2" %>
+          <%= f.text_field :from_who, value: params[:from_who], placeholder: "例: 同僚", class: "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500" %>
+        </div>
+        <div>
+          <%= f.label :situation, "場面のキーワード", class: "block text-sm font-medium text-gray-700 mb-2" %>
+          <%= f.text_field :situation, value: params[:situation], placeholder: "例: プレゼント", class: "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500" %>
+        </div>
+      </div>
+
+      <div class="flex gap-4">
+        <%= f.submit "検索", class: "bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded cursor-pointer" %>
+        <%= link_to "クリア", thanks_path, class: "bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded" %>
+      </div>
+    <% end %>
+  </div>
+
   <div class="mb-6">
     <%= link_to '新しい記録を作成', new_thank_path, class: 'bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded' %>
   </div>
@@ -17,6 +50,6 @@
       <% end %>
     </div>
   <% else %>
-    <p class="text-gray-600">まだありがとう記録がありません。</p>
+    <p class="text-gray-600">検索条件に一致する記録がありません。</p>
   <% end %>
 </div>

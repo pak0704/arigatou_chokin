@@ -8,6 +8,11 @@ class ThanksControllerTest < ActionDispatch::IntegrationTest
       from_who: "テストユーザー",
       situation: "テスト状況"
     )
+    @thank2 = @user.thanks.create!(
+      date: Date.today - 7,
+      from_who: "友人",
+      situation: "お土産をもらった"
+    )
   end
 
   test "should get index when logged in" do
@@ -118,5 +123,50 @@ class ThanksControllerTest < ActionDispatch::IntegrationTest
       delete thank_url(other_thank)
     end
     assert_response :not_found
+  end
+
+  test "should search by from_date" do
+    sign_in @user
+    get thanks_url, params: { from_date: Date.today }
+    assert_response :success
+    # @thankのみが表示されることを確認
+    assert_match @thank.from_who, @response.body
+    assert_no_match @thank2.from_who, @response.body
+  end
+
+  test "should search by to_date" do
+    sign_in @user
+    get thanks_url, params: { to_date: Date.today - 7 }
+    assert_response :success
+    # @thank2のみが表示されることを確認
+    assert_match @thank2.from_who, @response.body
+    assert_no_match @thank.from_who, @response.body
+  end
+
+  test "should search by from_who" do
+    sign_in @user
+    get thanks_url, params: { from_who: "友人" }
+    assert_response :success
+    # @thank2のみが表示されることを確認
+    assert_match @thank2.situation, @response.body
+    assert_no_match @thank.situation, @response.body
+  end
+
+  test "should search by situation" do
+    sign_in @user
+    get thanks_url, params: { situation: "お土産" }
+    assert_response :success
+    # @thank2のみが表示されることを確認
+    assert_match @thank2.situation, @response.body
+    assert_no_match @thank.situation, @response.body
+  end
+
+  test "should search with multiple conditions" do
+    sign_in @user
+    get thanks_url, params: { from_who: "友人", situation: "お土産" }
+    assert_response :success
+    # @thank2のみが表示されることを確認
+    assert_match @thank2.situation, @response.body
+    assert_no_match @thank.situation, @response.body
   end
 end
