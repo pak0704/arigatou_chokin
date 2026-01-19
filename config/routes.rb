@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   root "static_pages#top"
 
-  resources :thanks, only: [ :index, :new, :create ]
+  resources :thanks, only: [ :index, :new, :create, :show ]
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
