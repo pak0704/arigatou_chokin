@@ -1,0 +1,31 @@
+<div class="container mx-auto px-4 py-8 max-w-2xl">
+  <h1 class="text-3xl font-bold mb-6">ありがとう記録の詳細</h1>
+
+  <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+    <div class="mb-4">
+      <p class="text-sm text-gray-600 mb-1">日付</p>
+      <p class="text-lg font-semibold"><%= @thank.date.strftime('%Y年%m月%d日') %></p>
+    </div>
+
+    <div class="mb-4">
+      <p class="text-sm text-gray-600 mb-1">誰から</p>
+      <p class="text-lg"><%= @thank.from_who %></p>
+    </div>
+
+    <div class="mb-4">
+      <p class="text-sm text-gray-600 mb-1">どんな場面</p>
+      <p class="text-lg whitespace-pre-wrap"><%= @thank.situation %></p>
+    </div>
+
+    <% if @thank.feeling.present? %>
+      <div class="mb-4">
+        <p class="text-sm text-gray-600 mb-1">そのときの気持ち</p>
+        <p class="text-lg whitespace-pre-wrap"><%= @thank.feeling %></p>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="flex gap-4">
+    <%= link_to '一覧に戻る', thanks_path, class: 'bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded' %>
+  </div>
+</div>
