@@ -4,6 +4,23 @@ class ThanksController < ApplicationController
 
   def index
     @thanks = current_user.thanks.order(date: :desc)
+
+    # 検索条件の適用
+    if params[:from_date].present?
+      @thanks = @thanks.where("date >= ?", params[:from_date])
+    end
+
+    if params[:to_date].present?
+      @thanks = @thanks.where("date <= ?", params[:to_date])
+    end
+
+    if params[:from_who].present?
+      @thanks = @thanks.where("from_who LIKE ?", "%#{params[:from_who]}%")
+    end
+
+    if params[:situation].present?
+      @thanks = @thanks.where("situation LIKE ?", "%#{params[:situation]}%")
+    end
   end
 
   def new
