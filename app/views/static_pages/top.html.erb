@@ -1,15 +1,64 @@
-<div class="text-center mt-20">
-  <h1 class="text-4xl font-bold text-gray-800">ありがとう貯金</h1>
-  <p class="text-xl mt-4 text-gray-600">日常の感謝を記録するアプリ</p>
+<div class="container mx-auto px-4 py-8 max-w-4xl">
+  <div class="text-center mt-12">
+    <h1 class="text-5xl font-bold text-gray-800 mb-4">ありがとう貯金</h1>
+    <p class="text-2xl text-gray-600 mb-8">日常の感謝を記録するアプリ</p>
 
-  <div class="mt-8 space-x-4">
     <% if user_signed_in? %>
-      <%= link_to "記録を見る", thanks_path, class: "bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-8 rounded inline-block" %>
-      <%= link_to "新規作成", new_thank_path, class: "bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-8 rounded inline-block" %>
-      <%= link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete }, class: "bg-gray-500 hover:bg-gray-600 text-white font-bold py-3 px-8 rounded inline-block" %>
+      <!-- ログイン済み: ランダム表示 -->
+      <% if @random_thank %>
+        <div class="bg-white shadow-lg rounded-lg p-8 mb-8 text-left max-w-2xl mx-auto">
+          <h2 class="text-2xl font-semibold mb-4 text-center text-green-600">今日のありがとう</h2>
+          <div class="mb-4">
+            <p class="text-sm text-gray-600 mb-1">日付</p>
+            <p class="text-lg font-semibold"><%= @random_thank.date.strftime('%Y年%m月%d日') %></p>
+          </div>
+          <div class="mb-4">
+            <p class="text-sm text-gray-600 mb-1">誰から</p>
+            <p class="text-lg"><%= @random_thank.from_who %></p>
+          </div>
+          <div class="mb-4">
+            <p class="text-sm text-gray-600 mb-1">どんな場面</p>
+            <p class="text-lg whitespace-pre-wrap"><%= @random_thank.situation %></p>
+          </div>
+          <% if @random_thank.feeling.present? %>
+            <div class="mb-4">
+              <p class="text-sm text-gray-600 mb-1">そのときの気持ち</p>
+              <p class="text-lg whitespace-pre-wrap"><%= @random_thank.feeling %></p>
+            </div>
+          <% end %>
+          <div class="text-center mt-6">
+            <%= link_to '詳細を見る', thank_path(@random_thank), class: 'text-blue-500 hover:text-blue-700 font-semibold' %>
+          </div>
+        </div>
+      <% else %>
+        <div class="bg-gray-100 rounded-lg p-8 mb-8 max-w-2xl mx-auto">
+          <p class="text-gray-600 text-lg">まだありがとう記録がありません。</p>
+          <p class="text-gray-600 mt-2">最初の記録を作成してみましょう!</p>
+        </div>
+      <% end %>
+
+      <div class="mt-8 space-x-4">
+        <%= link_to "記録を見る", thanks_path, class: "bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-8 rounded inline-block" %>
+        <%= link_to "新規作成", new_thank_path, class: "bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-8 rounded inline-block" %>
+        <%= link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete }, class: "bg-gray-500 hover:bg-gray-600 text-white font-bold py-3 px-8 rounded inline-block" %>
+      </div>
+
     <% else %>
-      <%= link_to "新規登録", new_user_registration_path, class: "bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-8 rounded inline-block" %>
-      <%= link_to "ログイン", new_user_session_path, class: "bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-8 rounded inline-block" %>
+      <!-- 未ログイン: 説明 -->
+      <div class="bg-white shadow-lg rounded-lg p-8 mb-8 max-w-2xl mx-auto text-left">
+        <h2 class="text-2xl font-semibold mb-4 text-center text-green-600">ありがとう貯金とは?</h2>
+        <ul class="space-y-3 text-lg text-gray-700">
+          <li>✨ 日常の小さな「ありがとう」を記録</li>
+          <li>📝 誰から、どんな場面で感謝されたかを保存</li>
+          <li>🔍 過去の記録を検索して振り返り</li>
+          <li>💝 感謝の気持ちを積み重ねて、心を豊かに</li>
+        </ul>
+      </div>
+
+      <div class="mt-8 space-x-4">
+        <%= link_to "新規登録", new_user_registration_path, class: "bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-8 rounded inline-block" %>
+        <%= link_to "ログイン", new_user_session_path, class: "bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-8 rounded inline-block" %>
+      </div>
     <% end %>
   </div>
 </div>
