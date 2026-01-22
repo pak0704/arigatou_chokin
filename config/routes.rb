@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  # 開発環境のみ
+  mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
+
   devise_for :users
 
   root "static_pages#top"

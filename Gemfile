@@ -61,3 +61,7 @@ group :test do
   gem "selenium-webdriver"
   gem "minitest", "~> 5.20"
 end
+
+group :development do
+  gem "letter_opener_web"
+end

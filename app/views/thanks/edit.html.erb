@@ -1,41 +1,52 @@
-<div class="container mx-auto px-4 py-8 max-w-2xl">
-  <h1 class="text-3xl font-bold mb-6">ありがとう記録の編集</h1>
+<div class="min-h-screen bg-white flex flex-col">
+  <div class="w-full py-6 bg-green-50 text-center">
+    <h1 class="text-2xl font-bold text-gray-800">ありがとう貯金</h1>
+  </div>
 
-  <%= form_with model: @thank, local: true, class: "bg-white shadow-md rounded-lg p-6" do |f| %>
-    <% if @thank.errors.any? %>
-      <div class="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
-        <h2 class="font-bold mb-2"><%= pluralize(@thank.errors.count, "error") %> prohibited this record from being saved:</h2>
-        <ul class="list-disc list-inside">
-          <% @thank.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
+  <div class="flex-1 px-4 py-8">
+    <div class="max-w-md mx-auto">
+      <h2 class="text-2xl font-bold text-gray-800 text-center mb-8">記録を編集</h2>
 
-    <div class="mb-4">
-      <%= f.label :date, "日付", class: "block text-sm font-medium text-gray-700 mb-2" %>
-      <%= f.date_field :date, class: "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500" %>
+      <%= form_with(model: @thank, local: true, class: "space-y-6") do |f| %>
+        <% if @thank.errors.any? %>
+          <div class="bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-lg">
+            <ul class="list-disc list-inside">
+              <% @thank.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <div>
+          <%= f.label :date, "日付", class: "block text-gray-700 font-medium mb-2" %>
+          <%= f.date_field :date, class: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400" %>
+        </div>
+
+        <div>
+          <%= f.label :from_who, "誰から", class: "block text-gray-700 font-medium mb-2" %>
+          <%= f.text_field :from_who, class: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400" %>
+        </div>
+
+        <div>
+          <%= f.label :situation, "シチュエーション", class: "block text-gray-700 font-medium mb-2" %>
+          <%= f.text_area :situation, rows: 4, class: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400" %>
+        </div>
+
+        <div>
+          <%= f.label :feeling, "自分の気持ち・メモ", class: "block text-gray-700 font-medium mb-2" %>
+          <%= f.text_area :feeling, rows: 4, class: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400" %>
+        </div>
+
+        <div class="space-y-3">
+          <%= f.submit "更新", class: "w-full px-6 py-3 bg-green-400 text-white rounded-full hover:bg-green-500 cursor-pointer" %>
+          <%= link_to "キャンセル", thank_path(@thank), class: "block w-full px-6 py-3 bg-white border-2 border-gray-300 text-gray-700 rounded-full text-center hover:bg-gray-50" %>
+        </div>
+      <% end %>
     </div>
+  </div>
 
-    <div class="mb-4">
-      <%= f.label :from_who, "誰から", class: "block text-sm font-medium text-gray-700 mb-2" %>
-      <%= f.text_field :from_who, class: "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500" %>
-    </div>
-
-    <div class="mb-4">
-      <%= f.label :situation, "どんな場面", class: "block text-sm font-medium text-gray-700 mb-2" %>
-      <%= f.text_area :situation, rows: 4, class: "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500" %>
-    </div>
-
-    <div class="mb-6">
-      <%= f.label :feeling, "そのときの気持ち(任意)", class: "block text-sm font-medium text-gray-700 mb-2" %>
-      <%= f.text_area :feeling, rows: 4, class: "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500" %>
-    </div>
-
-    <div class="flex gap-4">
-      <%= f.submit "更新する", class: "bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded cursor-pointer" %>
-      <%= link_to 'キャンセル', thank_path(@thank), class: "bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded" %>
-    </div>
-  <% end %>
+  <div class="w-full text-center py-6 text-gray-400 text-sm bg-green-50">
+    © 2026 ありがとう貯金
+  </div>
 </div>
