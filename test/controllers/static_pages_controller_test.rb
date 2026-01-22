@@ -26,7 +26,7 @@ class StaticPagesControllerTest < ActionDispatch::IntegrationTest
 
     get root_url
     assert_response :success
-    assert_match "今日のありがとう", @response.body
+    assert_match "今日の思い出", @response.body
     assert_match thank.from_who, @response.body
   end
 
@@ -45,7 +45,8 @@ class StaticPagesControllerTest < ActionDispatch::IntegrationTest
 
     get root_url
     assert_response :success
-    assert_match "一覧を見る", @response.body
-    assert_match "新しく記録する", @response.body
+    assert_match "記録一覧", @response.body
+    assert_match "マイページ", @response.body
+    assert_match "ログアウト", @response.body
   end
 end

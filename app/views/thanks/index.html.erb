@@ -1,55 +1,62 @@
-<div class="container mx-auto px-4 py-8">
-  <h1 class="text-3xl font-bold mb-6">ありがとう記録一覧</h1>
-
-  <!-- 検索フォーム -->
-  <div class="bg-white shadow-md rounded-lg p-6 mb-6">
-    <h2 class="text-xl font-semibold mb-4">検索</h2>
-    <%= form_with url: thanks_path, method: :get, local: true do |f| %>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-        <div>
-          <%= f.label :from_date, "開始日", class: "block text-sm font-medium text-gray-700 mb-2" %>
-          <%= f.date_field :from_date, value: params[:from_date], class: "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500" %>
-        </div>
-        <div>
-          <%= f.label :to_date, "終了日", class: "block text-sm font-medium text-gray-700 mb-2" %>
-          <%= f.date_field :to_date, value: params[:to_date], class: "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500" %>
-        </div>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-        <div>
-          <%= f.label :from_who, "誰から", class: "block text-sm font-medium text-gray-700 mb-2" %>
-          <%= f.text_field :from_who, value: params[:from_who], placeholder: "例: 同僚", class: "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500" %>
-        </div>
-        <div>
-          <%= f.label :situation, "場面のキーワード", class: "block text-sm font-medium text-gray-700 mb-2" %>
-          <%= f.text_field :situation, value: params[:situation], placeholder: "例: プレゼント", class: "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500" %>
-        </div>
-      </div>
-
-      <div class="flex gap-4">
-        <%= f.submit "検索", class: "bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded cursor-pointer" %>
-        <%= link_to "クリア", thanks_path, class: "bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded" %>
-      </div>
-    <% end %>
+<div class="min-h-screen bg-white flex flex-col">
+  <div class="w-full py-6 bg-green-50 text-center">
+    <h1 class="text-2xl font-bold text-gray-800">ありがとう貯金</h1>
   </div>
 
-  <div class="mb-6">
-    <%= link_to '新しい記録を作成', new_thank_path, class: 'bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded' %>
-  </div>
-
-  <% if @thanks.any? %>
-    <div class="grid gap-4">
-      <% @thanks.each do |thank| %>
-        <div class="bg-white shadow-md rounded-lg p-6">
-          <p class="text-sm text-gray-600 mb-2"><%= thank.date.strftime('%Y年%m月%d日') %></p>
-          <p class="font-semibold mb-2">誰から: <%= thank.from_who %></p>
-          <p class="text-gray-700 mb-4"><%= truncate(thank.situation, length: 100) %></p>
-          <%= link_to '詳細を見る', thank_path(thank), class: 'text-blue-500 hover:text-blue-700 font-semibold' %>
-        </div>
-      <% end %>
+  <div class="w-full py-4 bg-white border-b">
+    <div class="max-w-7xl mx-auto px-4 flex justify-center gap-4">
+      <%= link_to "記録一覧", thanks_path, class: "px-6 py-2 rounded-full bg-green-400 text-white hover:bg-green-500" %>
+      <%= link_to "マイページ", "#", class: "px-6 py-2 rounded-full bg-green-400 text-white hover:bg-green-500" %>
+      <%= link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete }, class: "px-6 py-2 rounded-full bg-green-400 text-white hover:bg-green-500" %>
     </div>
-  <% else %>
-    <p class="text-gray-600">検索条件に一致する記録がありません。</p>
-  <% end %>
+  </div>
+
+  <div class="flex-1 px-4 py-8">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="text-2xl font-bold text-gray-800 text-center mb-8">記録一覧</h2>
+
+      <div class="bg-gray-50 rounded-lg p-6 mb-6">
+        <h3 class="text-lg font-semibold mb-4">日付範囲</h3>
+        <%= form_with url: thanks_path, method: :get, local: true do |f| %>
+          <div class="flex gap-4 mb-4 items-center">
+            <%= f.date_field :from_date, value: params[:from_date], class: "px-4 py-2 border border-gray-300 rounded-lg" %>
+            <span>〜</span>
+            <%= f.date_field :to_date, value: params[:to_date], class: "px-4 py-2 border border-gray-300 rounded-lg" %>
+          </div>
+
+          <div class="mb-4">
+            <h3 class="text-lg font-semibold mb-2">キーワード</h3>
+            <%= f.text_field :situation, value: params[:situation], placeholder: "キーワードを入力", class: "w-full px-4 py-2 border border-gray-300 rounded-lg" %>
+          </div>
+
+          <div class="text-center">
+            <%= f.submit "検索", class: "px-12 py-3 bg-green-400 text-white rounded-full hover:bg-green-500 cursor-pointer" %>
+          </div>
+        <% end %>
+      </div>
+
+      <% if @thanks.any? %>
+        <div class="space-y-4 mb-8">
+          <% @thanks.each do |thank| %>
+            <div class="bg-gray-50 rounded-lg p-6">
+              <p class="text-gray-600 mb-2"><%= thank.date.strftime('%Y年%m月%d日') %></p>
+              <p class="font-semibold mb-2"><%= thank.from_who %>から</p>
+              <p class="text-gray-700 mb-4">「<%= truncate(thank.situation, length: 50) %>」</p>
+              <%= link_to '詳細を見る', thank_path(thank), class: 'text-green-600 hover:text-green-700' %>
+            </div>
+          <% end %>
+        </div>
+      <% else %>
+        <p class="text-gray-600 text-center mb-8">検索条件に一致する記録がありません。</p>
+      <% end %>
+
+      <div class="text-center">
+        <%= link_to '新規記録を作成', new_thank_path, class: 'inline-block px-12 py-3 bg-green-400 text-white rounded-full hover:bg-green-500' %>
+      </div>
+    </div>
+  </div>
+
+  <div class="w-full text-center py-6 text-gray-400 text-sm bg-green-50">
+    © 2026 ありがとう貯金
+  </div>
 </div>
