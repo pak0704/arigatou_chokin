@@ -55,6 +55,9 @@ end
   # 認証機能
   gem "devise"
 
+  # メール送信
+  gem "resend"
+
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
