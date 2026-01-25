@@ -21,6 +21,7 @@ class ThanksController < ApplicationController
     if params[:situation].present?
       @thanks = @thanks.where("situation LIKE ?", "%#{params[:situation]}%")
     end
+    @thanks = @thanks.page(params[:page]).per(10)
   end
 
   def new
