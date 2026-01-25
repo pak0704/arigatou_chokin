@@ -1,0 +1,51 @@
+ja:
+  devise:
+    registrations:
+      updated: "アカウント情報を変更しました。"
+      updated_but_not_signed_in: "アカウント情報を変更しました。再度ログインしてください。"
+    failure:
+      invalid: "メールアドレスまたはパスワードが正しくありません。"
+      unauthenticated: "ログインしてください。"
+      user:
+        invalid: "メールアドレスまたはパスワードが正しくありません。"
+    sessions:
+      signed_in: "ログインしました。"
+      signed_out: "ログアウトしました。"
+  errors:
+    messages:
+      not_saved: "エラーがあるため保存できませんでした"
+  activerecord:
+    models:
+      thank: ありがとう記録
+      user: ユーザー
+    attributes:
+      thank:
+        date: 日付
+        from_who: 「誰から」
+        situation: 「どんなシチュエーションで言われた？」
+        feeling: 自分の気持ち・メモ
+      user:
+        email: メールアドレス
+        password: パスワード
+        password_confirmation: パスワード(確認)
+        current_password: 現在のパスワード
+    errors:
+      models:
+        thank:
+          attributes:
+            date:
+              blank: を入力してください
+            from_who:
+              blank: を入力してください
+            situation:
+              blank: を入力してください
+        user:
+          attributes:
+            email:
+              blank: を入力してください
+            password:
+              blank: を入力してください
+            current_password:
+              blank: を入力してください
+            password_confirmation:
+              confirmation: とパスワードの入力が一致しません

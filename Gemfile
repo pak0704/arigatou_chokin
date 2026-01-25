@@ -58,6 +58,12 @@ end
   # メール送信
   gem "resend"
 
+  # ページネーション
+  gem "kaminari"
+
+  # 日本語化
+  gem "rails-i18n"
+
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
